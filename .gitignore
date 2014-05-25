@@ -221,3 +221,13 @@ DemoSystem.cogui
 DemoSystem.comarker
 DemoSystem.coproj
 DemoSystem/DemoSystem.elf.xcodeproj/project.pbxproj
+cmsis_lib/include/stm32f4xx_rcc.h
+cmsis_lib/include/stm32f4xx_pwr.h
+cmsis_boot/system_stm32f4xx.h
+cmsis_boot/stm32f4xx_conf.h
+cmsis_boot/stm32f4xx.h
+cmsis_boot/startup/startup_stm32f4xx.c
+cmsis/core_cmInstr.h
+cmsis/core_cmFunc.h
+cmsis/core_cm4_simd.h
+cmsis/core_cm4.h
