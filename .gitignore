@@ -213,3 +213,11 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+cmsis_boot/system_stm32f4xx.c
+cmsis_lib/source/stm32f4xx_rcc.c
+cmsis_lib/source/stm32f4xx_pwr.c
+syscalls/syscalls.c
+DemoSystem.cogui
+DemoSystem.comarker
+DemoSystem.coproj
+DemoSystem/DemoSystem.elf.xcodeproj/project.pbxproj
