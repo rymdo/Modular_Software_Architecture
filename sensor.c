@@ -35,7 +35,8 @@ void sendLatestReadingToEventHandler(DistanceSensor* sensor) {
 			if(ret == MBROKER_PUBLISH_SUCCESS) {
 				//Successful publish!
 			} else {
-				//Something went wrong!
+				//If publish fail, free the message from memory
+				freeBasicMessage(message);
 			}
 		}
 	}

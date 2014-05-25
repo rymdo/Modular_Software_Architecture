@@ -8,6 +8,7 @@
 typedef struct EventHandler {
 	MBroker* broker;
 	BasicMessage* incoming_messages[EVENTHANDLER_INCOMING_MESSAGES_SIZE];
+	BasicMessage* message;
 } EventHandler;
 
 void initEventHandler(EventHandler* event);
@@ -17,8 +18,9 @@ void setEventHandlerMessageBroker(EventHandler* event, MBroker* broker);
 
 //Receive function
 void incomingBasicMessagEventHandler(EventHandler* event, BasicMessage* message);
-void parseIncomingMessagesEventHandler(EventHandler* event, BasicMessage* message);
-
+void parseIncomingMessageEventHandler(EventHandler* event, BasicMessage* message);
+void appendIncomingBasicMessageEventHandler(EventHandler* event, BasicMessage* message);
+BasicMessage* fetchBasicMessageEventHandler(EventHandler* event);
 void cleanEventHandlerQueue(EventHandler* event);
 
 #endif

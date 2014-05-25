@@ -23,9 +23,7 @@ void processMessageBroker(MBroker* broker) {
 
 uint_fast8_t registerModuleEndpoint(MBroker* broker, uint_fast8_t endpoint, uint_fast8_t type, void* module) {
 	uint_fast16_t i;
-
 	ModuleEndpoint* NewEndpoint = calloc(1,sizeof(ModuleEndpoint));
-
 	for(i = 0; i < MBROKER_MOUDLE_ENDPOINTS; i++) {
 		if(broker->Endpoints[i] == 0) {
 			NewEndpoint->endpoint;
@@ -72,6 +70,8 @@ void deliverBrokerMessageToModule(MBroker* broker, BasicMessage* message) {
 	if(endpoint != 0) {
 		if(endpoint->moduleType == ENDPOINT_EVENT) {
 			incomingBasicMessagEventHandler((MODULE_TYPE_0)endpoint->module, message);
+		} else if(endpoint->moduleType == ENDPOINT_DISTANCESENSOR) {
+			incomingBasicMessageDistanceSensor((MODULE_TYPE_1)endpoint->module, message);
 		}
 	}
 	deleteMessageFromQueue(broker, message);
