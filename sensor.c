@@ -15,7 +15,10 @@ void initDistaceSensor(DistanceSensor* sensor) {
 
 void processDistanceSensor(DistanceSensor* sensor) {
 	sendLatestReadingToEventHandler(sensor);
-	sensor->latest_reading += 1.1;
+	sensor->latest_reading += 0.1;
+	if(sensor->latest_reading >= 20.0) {
+		sensor->latest_reading = 0.0;
+	}
 }
 
 void setDistanceSensorMessageBroker(DistanceSensor* sensor, MBroker* broker) {
@@ -53,8 +56,6 @@ void parseIncomingMessagesDistanceSensor(DistanceSensor* sensor, BasicMessage* m
 void cleanDistanceSensorIncomingMessages(DistanceSensor* sensor) {
 	uint_fast16_t i;
 	for(i = 0; i < SENSOR_INCOMING_MESSAGES_SIZE; i++) {
-		sensor->incoming_messages[i].type = 0;
-		sensor->incoming_messages[i].target = 0;
-		sensor->incoming_messages[i].payload = 0;
+		sensor->incoming_messages[i] = 0;
 	}
 }

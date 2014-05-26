@@ -18,7 +18,7 @@ typedef struct DistanceSensor {
 	float latest_reading;
 	//uint_fast8_t (*MB_Publish)(BasicMessage*);
 	MBroker* broker;
-	BasicMessage incoming_messages[SENSOR_INCOMING_MESSAGES_SIZE];
+	BasicMessage* incoming_messages[SENSOR_INCOMING_MESSAGES_SIZE];
 
 } DistanceSensor;
 

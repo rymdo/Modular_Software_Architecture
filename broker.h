@@ -12,6 +12,7 @@
 //Module Types
 #define MODULE_TYPE_0 EventHandler*
 #define MODULE_TYPE_1 DistanceSensor*
+#define MODULE_TYPE_2 MotorHandler*
 
 typedef struct BasicMessage {
 	uint_fast8_t type;

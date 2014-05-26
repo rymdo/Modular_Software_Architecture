@@ -21,6 +21,8 @@ void incomingBasicMessagEventHandler(EventHandler* event, BasicMessage* message)
 void parseIncomingMessageEventHandler(EventHandler* event, BasicMessage* message);
 void appendIncomingBasicMessageEventHandler(EventHandler* event, BasicMessage* message);
 BasicMessage* fetchBasicMessageEventHandler(EventHandler* event);
+void clearMessageFromEventHandlerIncomingQueue(EventHandler* event, BasicMessage* message);
+void fixEventHandlerIncomingQueue(EventHandler* event);
 void cleanEventHandlerQueue(EventHandler* event);
 
 #endif

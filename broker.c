@@ -6,6 +6,7 @@
 #include "sensor.h"
 #include "broker.h"
 #include "event.h"
+#include "motor.h"
 
 void initMessageBroker(MBroker* broker) {
 	broker->message = 0;
@@ -15,9 +16,12 @@ void initMessageBroker(MBroker* broker) {
 
 void processMessageBroker(MBroker* broker) {
 	broker->message = fetchMessageFromQueue(broker);
-	if(broker->message != 0) {
-		deliverBrokerMessageToModule(broker, broker->message);
-		broker->message = 0;
+	while(broker->message != 0) {
+		if(broker->message != 0) {
+			deliverBrokerMessageToModule(broker, broker->message);
+			broker->message = 0;
+		}
+		broker->message = fetchMessageFromQueue(broker);
 	}
 }
 
@@ -26,7 +30,7 @@ uint_fast8_t registerModuleEndpoint(MBroker* broker, uint_fast8_t endpoint, uint
 	ModuleEndpoint* NewEndpoint = calloc(1,sizeof(ModuleEndpoint));
 	for(i = 0; i < MBROKER_MOUDLE_ENDPOINTS; i++) {
 		if(broker->Endpoints[i] == 0) {
-			NewEndpoint->endpoint;
+			NewEndpoint->endpoint = endpoint;
 			NewEndpoint->moduleType = type;
 			NewEndpoint->module = module;
 			broker->Endpoints[i] = NewEndpoint;
@@ -72,6 +76,8 @@ void deliverBrokerMessageToModule(MBroker* broker, BasicMessage* message) {
 			incomingBasicMessagEventHandler((MODULE_TYPE_0)endpoint->module, message);
 		} else if(endpoint->moduleType == ENDPOINT_DISTANCESENSOR) {
 			incomingBasicMessageDistanceSensor((MODULE_TYPE_1)endpoint->module, message);
+		} else if(endpoint->moduleType == ENDPOINT_MOTOR) {
+			incomingBasicMessagMotorHandler((MODULE_TYPE_1)endpoint->module, message);
 		}
 	}
 	deleteMessageFromQueue(broker, message);
@@ -92,7 +98,6 @@ void deleteMessageFromQueue(MBroker* broker, BasicMessage* message) {
 	uint_fast16_t i;
 	for(i = 0; i < MBROKER_BASIC_MESSAGE_QUEUE_SIZE; i++) {
 		if(broker->Queue[i] == message) {
-			//freeBasicMessage(message);
 			broker->Queue[i] = 0;
 			fixMessageBrokerQueue(broker);
 			return;
